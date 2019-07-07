@@ -21,7 +21,7 @@ public class GuestDataBaseHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + DataBaseConstants.GUEST.TABLE_NAME;
 
     public GuestDataBaseHelper(Context context) {
-        super(context, this.DATABASE_NAME, null, this.DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

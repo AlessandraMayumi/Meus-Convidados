@@ -2,7 +2,6 @@ package com.devmasterteam.meusconvidados.constants;
 
 public class DataBaseConstants {
     private DataBaseConstants(){
-
     }
 
     public static class GUEST{
