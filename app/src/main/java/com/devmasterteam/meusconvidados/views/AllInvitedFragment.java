@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.devmasterteam.meusconvidados.R;
 
 
-public class AllInvetedFragment extends Fragment {
+public class AllInvitedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

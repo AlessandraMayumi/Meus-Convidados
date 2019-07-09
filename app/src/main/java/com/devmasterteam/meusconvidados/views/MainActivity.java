@@ -17,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.devmasterteam.meusconvidados.R;
-import com.devmasterteam.meusconvidados.business.GuestBusiness;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         Class fragmentClass = null;
 
-        fragmentClass = AllInvetedFragment.class;
+        fragmentClass = AllInvitedFragment.class;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (IllegalAccessException e) {
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_all_guests) {
-            fragmentClass = AllInvetedFragment.class;
+            fragmentClass = AllInvitedFragment.class;
         } else if (id == R.id.nav_present) {
             fragmentClass = PresentFragment.class;
         } else if (id == R.id.nav_absent) {

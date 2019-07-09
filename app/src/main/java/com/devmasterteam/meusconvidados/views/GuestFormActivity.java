@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.devmasterteam.meusconvidados.R;
 import com.devmasterteam.meusconvidados.business.GuestBusiness;
@@ -30,9 +31,9 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         this.mViewHolder.mRadioAbsent = (RadioButton) this.findViewById(R.id.radio_absent);
         this.mViewHolder.mButtonSave = (Button) this.findViewById(R.id.button_save);
 
-        this.mGuestBusiness = new GuestBusiness(this);
-
         this.setListeners();
+
+        this.mGuestBusiness = new GuestBusiness(this);
     }
 
     @Override
@@ -47,6 +48,11 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void handleSave() {
+
+        if(!this.validateSave()){
+            return;
+        }
+
         GuestEntity guestEntity = new GuestEntity();
         guestEntity.setName(this.mViewHolder.mEditName.getText().toString());
 
@@ -60,7 +66,21 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
             guestEntity.setConfirmed(GuestConstants.CONFIRMATION.ABSENT);
         }
 
-        this.mGuestBusiness.insert(guestEntity);
+        if(this.mGuestBusiness.insert(guestEntity)){
+            Toast.makeText(this, getString(R.string.convidado_salvo_com_sucesso), Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this, getString(R.string.erro_ao_salvar), Toast.LENGTH_LONG).show();
+        }
+
+        finish();
+    }
+
+    private boolean validateSave() {
+        if(this.mViewHolder.mEditName.getText().toString().equals("")){
+            this.mViewHolder.mEditName.setError(getString(R.string.nome_obrigatorio));
+            return false;
+        }
+        return true;
     }
 
     private static class ViewHolder {
