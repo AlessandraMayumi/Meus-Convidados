@@ -9,15 +9,18 @@ import android.view.ViewGroup;
 
 import com.devmasterteam.meusconvidados.R;
 import com.devmasterteam.meusconvidados.entities.GuestEntity;
+import com.devmasterteam.meusconvidados.listener.OnGuestListenerInteractionListener;
 import com.devmasterteam.meusconvidados.viewholder.GuestViewHolder;
 
 import java.util.List;
 
 public class GuestListAdapter extends RecyclerView.Adapter<GuestViewHolder> {
     private List<GuestEntity> mGuestEntityList;
+    private OnGuestListenerInteractionListener mOnGuestListenerInteractionListener;
 
-    public GuestListAdapter(List<GuestEntity> guestEntityList){
+    public GuestListAdapter(List<GuestEntity> guestEntityList, OnGuestListenerInteractionListener listener){
         this.mGuestEntityList = guestEntityList;
+        this.mOnGuestListenerInteractionListener = listener;
     }
 
     @NonNull
@@ -34,7 +37,7 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull GuestViewHolder guestViewHolder, int position) {
         GuestEntity guestEntity = this.mGuestEntityList.get(position);
-        guestViewHolder.bindData(guestEntity);
+        guestViewHolder.bindData(guestEntity, mOnGuestListenerInteractionListener);
     }
 
     @Override

@@ -71,4 +71,33 @@ public class GuestRepository {
         }
         return list;
     }
+
+    public GuestEntity load(int id) {
+        GuestEntity guestEntity = new GuestEntity();
+        try{
+            SQLiteDatabase sqLiteDatabase = this.mGuestDataBaseHelper.getReadableDatabase();
+
+            String[] projection = {
+                    DataBaseConstants.GUEST.COLUMNS.ID,
+                    DataBaseConstants.GUEST.COLUMNS.NAME,
+                    DataBaseConstants.GUEST.COLUMNS.PRESENCE};
+            String seletion = DataBaseConstants.GUEST.COLUMNS.ID + " = ?";
+            String[] selectionArgs = {String.valueOf(id)};
+
+            Cursor cursor = sqLiteDatabase.query(DataBaseConstants.GUEST.TABLE_NAME, projection, seletion, selectionArgs, null, null, null);
+//            sqLiteDatabase.rawQuery("SELECT * FROM guest WHERE id=" + String.valueOf(id), null);
+            if(cursor != null && cursor.getCount()>0){
+                cursor.moveToFirst();
+                guestEntity.setId(cursor.getInt(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.ID)));
+                guestEntity.setName(cursor.getString(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.NAME)));
+                guestEntity.setConfirmed(cursor.getInt(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.PRESENCE)));
+            }
+            if (cursor != null){
+                cursor.close();
+            }
+            return guestEntity;
+        }catch (Exception e){
+            return guestEntity;
+        }
+    }
 }
