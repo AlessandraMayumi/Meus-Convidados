@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.devmasterteam.meusconvidados.constants.DataBaseConstants;
+import com.devmasterteam.meusconvidados.constants.GuestConstants;
+import com.devmasterteam.meusconvidados.entities.GuestCount;
 import com.devmasterteam.meusconvidados.entities.GuestEntity;
 
 import java.util.ArrayList;
@@ -43,7 +45,44 @@ public class GuestRepository {
          catch (Exception e) {
             return false;
         }
+    }
 
+    public boolean update(GuestEntity guestEntity) {
+        try{
+            SQLiteDatabase sqLiteDatabase = this.mGuestDataBaseHelper.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guestEntity.getName());
+            contentValues.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, guestEntity.getConfirmed());
+
+            String selection = DataBaseConstants.GUEST.COLUMNS.ID + " = ?";
+            String[] selectionArgs = {String.valueOf(guestEntity.getId())};
+
+            sqLiteDatabase.update(
+                    DataBaseConstants.GUEST.TABLE_NAME,
+                    contentValues,
+                    selection,
+                    selectionArgs);
+            return true;
+
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+
+    public Boolean remove(int id) {
+        try{
+            SQLiteDatabase sqLiteDatabase = this.mGuestDataBaseHelper.getWritableDatabase();
+
+            String whereClause = DataBaseConstants.GUEST.COLUMNS.ID + " = ?";
+            String[] whereArgs = {String.valueOf(id)};
+            sqLiteDatabase.delete(DataBaseConstants.GUEST.TABLE_NAME, whereClause, whereArgs);
+
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     public List<GuestEntity> getGuestByQuery(String query) {
@@ -98,6 +137,53 @@ public class GuestRepository {
             return guestEntity;
         }catch (Exception e){
             return guestEntity;
+        }
+    }
+
+    public GuestCount loadDashboard() {
+        GuestCount guestCount = new GuestCount(0,0,0);
+        Cursor cursor;
+        try{
+            SQLiteDatabase sqLiteDatabase = this.mGuestDataBaseHelper.getReadableDatabase();
+
+//            SELECT count(*) FROM Guest WHERE presence='1'
+            String queryPresence = "SELECT count(*) FROM "
+                    + DataBaseConstants.GUEST.TABLE_NAME
+                    + " WHERE "
+                    + DataBaseConstants.GUEST.COLUMNS.PRESENCE
+                    + "="
+                    + GuestConstants.CONFIRMATION.PRESENT;
+            cursor = sqLiteDatabase.rawQuery(queryPresence,null);
+            if(cursor != null && cursor.getCount() > 0){
+                cursor.moveToFirst();
+                guestCount.setPresentCount(cursor.getInt(0));
+            }
+
+            String queryAbsent = "SELECT count(*) FROM "
+                    + DataBaseConstants.GUEST.TABLE_NAME
+                    + " WHERE "
+                    + DataBaseConstants.GUEST.COLUMNS.PRESENCE
+                    + "="
+                    + GuestConstants.CONFIRMATION.ABSENT;
+            cursor = sqLiteDatabase.rawQuery(queryAbsent,null);
+            if(cursor != null && cursor.getCount() > 0){
+                cursor.moveToFirst();
+                guestCount.setAbsentCount(cursor.getInt(0));
+            }
+
+            String queryAllInvited = "SELECT count(*) FROM " + DataBaseConstants.GUEST.TABLE_NAME;
+            cursor = sqLiteDatabase.rawQuery(queryAllInvited,null);
+            if(cursor != null && cursor.getCount() > 0){
+                cursor.moveToFirst();
+                guestCount.setAllInvitedCount(cursor.getInt(0));
+            }
+
+            if(cursor != null){
+                cursor.close();
+            }
+            return guestCount;
+        }catch(Exception e){
+            return guestCount;
         }
     }
 }

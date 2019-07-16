@@ -4,6 +4,7 @@
     <string name="navigation_drawer_close">Fechar menu</string>
 
     <string name="todos">Todos</string>
+    <string name="total">Total</string>
     <string name="presentes">Presentes</string>
     <string name="ausentes">Ausentes</string>
     <string name="configuracoes">Configurações</string>

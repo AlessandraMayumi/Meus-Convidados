@@ -69,10 +69,21 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
             guestEntity.setConfirmed(GuestConstants.CONFIRMATION.ABSENT);
         }
 
-        if(this.mGuestBusiness.insert(guestEntity)){
-            Toast.makeText(this, getString(R.string.convidado_salvo_com_sucesso), Toast.LENGTH_LONG).show();
+        if (this.mGuestId == 0){
+
+            if(this.mGuestBusiness.insert(guestEntity)){
+                Toast.makeText(this, getString(R.string.convidado_salvo_com_sucesso), Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this, getString(R.string.erro_ao_salvar), Toast.LENGTH_LONG).show();
+            }
         }else{
-            Toast.makeText(this, getString(R.string.erro_ao_salvar), Toast.LENGTH_LONG).show();
+            guestEntity.setId(this.mGuestId);
+
+            if(this.mGuestBusiness.update(guestEntity)){
+                Toast.makeText(this, getString(R.string.convidado_salvo_com_sucesso), Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this, getString(R.string.erro_ao_salvar), Toast.LENGTH_LONG).show();
+            }
         }
 
         finish();
