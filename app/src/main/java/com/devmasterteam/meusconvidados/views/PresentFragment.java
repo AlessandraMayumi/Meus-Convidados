@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.devmasterteam.meusconvidados.R;
 import com.devmasterteam.meusconvidados.adapter.GuestListAdapter;
@@ -56,7 +57,11 @@ public class PresentFragment extends Fragment {
 
             @Override
             public void onDeleteClick(int id) {
+                mGuestBusiness.remove(id);
 
+                Toast.makeText(getContext(), getString(R.string.convidado_removido), Toast.LENGTH_LONG).show();
+
+                loadGuest();
             }
         };
         // Definir Recycler View

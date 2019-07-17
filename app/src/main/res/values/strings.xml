@@ -18,4 +18,10 @@
     <string name="nome_obrigatorio">Nome é obrigatório</string>
     <string name="convidado_salvo_com_sucesso">Convidado salvo com sucesso!</string>
     <string name="erro_ao_salvar">Erro ao salvar</string>
+    <string name="convidado_removido">Convidado removido com sucesso</string>
+    <string name="ic_remove">ícone de remoção</string>
+    <string name="title_remocao">Remoção de convidado</string>
+    <string name="message_remove">Deseja remover o convidado?</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
 </resources>
