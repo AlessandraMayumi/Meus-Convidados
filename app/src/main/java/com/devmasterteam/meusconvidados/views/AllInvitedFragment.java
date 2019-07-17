@@ -26,6 +26,7 @@ import java.util.List;
 public class AllInvitedFragment extends Fragment {
     private ViewHolder mViewHolder = new ViewHolder();
     private GuestBusiness mGuestBusiness;
+    private OnGuestListenerInteractionListener mOnGuestListenerInteractionListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,9 @@ public class AllInvitedFragment extends Fragment {
 
         Context context = view.getContext();
 
-        OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
+        this.mGuestBusiness = new GuestBusiness(context);
+
+        this.mOnGuestListenerInteractionListener = new OnGuestListenerInteractionListener() {
             @Override
             public void onListClick(int id) {
                 Bundle bundle = new Bundle();
@@ -66,22 +69,35 @@ public class AllInvitedFragment extends Fragment {
 
         // Definir Recycler View
         this.mViewHolder.mRecyclerAllInvited = (RecyclerView) view.findViewById(R.id.recycler_all_invited);
-        // Buscar a lista de convidados
-        this.mGuestBusiness = new GuestBusiness(context);
-        List<GuestEntity> guestEntityList = this.mGuestBusiness.getInvited();
-        // Definir um adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, listener);
-        this.mViewHolder.mRecyclerAllInvited.setAdapter(guestListAdapter);
         // Definir um layout
         this.mViewHolder.mRecyclerAllInvited.setLayoutManager(new LinearLayoutManager(context));
 
+        this.loadGuest();
         this.loadDashboard();
 
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        this.loadDashboard();
+        this.loadGuest();
+    }
+
+    private void loadGuest() {
+        // Buscar a lista de convidados
+        List<GuestEntity> guestEntityList = this.mGuestBusiness.getInvited();
+        // Definir um adapter
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, mOnGuestListenerInteractionListener);
+        this.mViewHolder.mRecyclerAllInvited.setAdapter(guestListAdapter);
+        guestListAdapter.notifyDataSetChanged();
+    }
+
     private void loadDashboard() {
         GuestCount guestCount = this.mGuestBusiness.loadDashboard();
+
         this.mViewHolder.mTextPresentCount.setText(String.valueOf(guestCount.getPresentCount()));
         this.mViewHolder.mTextAbsentCount.setText(String.valueOf(guestCount.getAbsentCount()));
         this.mViewHolder.mTextAllInvitedCount.setText(String.valueOf(guestCount.getAllInvitedCount()));

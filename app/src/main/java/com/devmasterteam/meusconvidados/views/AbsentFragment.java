@@ -23,6 +23,8 @@ import java.util.List;
 public class AbsentFragment extends Fragment {
     private ViewHolder mViewHolder = new ViewHolder();
     private GuestBusiness mGuestBusiness;
+    private OnGuestListenerInteractionListener mOnGuestListenerInteractionListener;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,12 @@ public class AbsentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_absent, container, false);
+
         Context context = view.getContext();
 
-        OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
+        this.mGuestBusiness = new GuestBusiness(context);
+
+        this.mOnGuestListenerInteractionListener = new OnGuestListenerInteractionListener() {
             @Override
             public void onListClick(int id) {
                 Bundle bundle = new Bundle();
@@ -57,17 +62,28 @@ public class AbsentFragment extends Fragment {
         };
         // Definir Recycler View
         this.mViewHolder.mRecyclerAbsent = (RecyclerView) view.findViewById(R.id.recycler_absent);
-        // Buscar a lista de convidados
-        this.mGuestBusiness = new GuestBusiness(context);
-        List<GuestEntity> guestEntityList = this.mGuestBusiness.getAbsent();
-        // Definir um adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, listener);
-        this.mViewHolder.mRecyclerAbsent.setAdapter(guestListAdapter);
         // Definir um layout
         this.mViewHolder.mRecyclerAbsent.setLayoutManager(new LinearLayoutManager(context));
 
         return view;
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        this.loadGuest();
+    }
+
+    private void loadGuest() {
+        // Buscar a lista de convidados
+        List<GuestEntity> guestEntityList = this.mGuestBusiness.getAbsent();
+        // Definir um adapter
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, this.mOnGuestListenerInteractionListener);
+        this.mViewHolder.mRecyclerAbsent.setAdapter(guestListAdapter);
+        guestListAdapter.notifyDataSetChanged();
+    }
+
 
     private static class ViewHolder{
         RecyclerView mRecyclerAbsent;

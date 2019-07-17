@@ -23,6 +23,7 @@ import java.util.List;
 public class PresentFragment extends Fragment {
     private ViewHolder mViewHolder = new ViewHolder();
     private GuestBusiness mGuestBusiness;
+    private OnGuestListenerInteractionListener mOnGuestListenerInteractionListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,12 @@ public class PresentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_present, container, false);
+
         Context context = view.getContext();
 
-        OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
+        this.mGuestBusiness = new GuestBusiness(context);
+
+        this.mOnGuestListenerInteractionListener = new OnGuestListenerInteractionListener() {
             @Override
             public void onListClick(int id) {
                 Bundle bundle = new Bundle();
@@ -57,17 +61,28 @@ public class PresentFragment extends Fragment {
         };
         // Definir Recycler View
         this.mViewHolder.mRecyclerPresent = (RecyclerView) view.findViewById(R.id.recycler_present);
-        // Buscar a lista de convidados
-        this.mGuestBusiness = new GuestBusiness(context);
-        List<GuestEntity> guestEntityList = this.mGuestBusiness.getPresent();
-        // Definir um adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, listener);
-        this.mViewHolder.mRecyclerPresent.setAdapter(guestListAdapter);
         // Definir um layout
         this.mViewHolder.mRecyclerPresent.setLayoutManager(new LinearLayoutManager(context));
-    
+
         return view;
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        this.loadGuest();
+    }
+
+    public void loadGuest(){
+        // Buscar a lista de convidados
+        List<GuestEntity> guestEntityList = this.mGuestBusiness.getPresent();
+        // Definir um adapter
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, this.mOnGuestListenerInteractionListener);
+        this.mViewHolder.mRecyclerPresent.setAdapter(guestListAdapter);
+        guestListAdapter.notifyDataSetChanged();
+    }
+
     private static class ViewHolder{
         RecyclerView mRecyclerPresent;
     }
