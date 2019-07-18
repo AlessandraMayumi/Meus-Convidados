@@ -13,7 +13,15 @@
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/documento"/>
+    <EditText
+        android:id="@+id/edit_document"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

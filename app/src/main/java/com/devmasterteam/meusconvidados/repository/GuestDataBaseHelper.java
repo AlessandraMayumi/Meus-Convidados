@@ -15,6 +15,7 @@ public class GuestDataBaseHelper extends SQLiteOpenHelper {
     "CREATE TABLE " + DataBaseConstants.GUEST.TABLE_NAME + " ("
     + DataBaseConstants.GUEST.COLUMNS.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
     + DataBaseConstants.GUEST.COLUMNS.NAME + " TEXT, "
+    + DataBaseConstants.GUEST.COLUMNS.DOCUMENT + " TEXT, "
     + DataBaseConstants.GUEST.COLUMNS.PRESENCE + " INTEGER)";
 
     private static final String DROP_TABLE_GUEST =

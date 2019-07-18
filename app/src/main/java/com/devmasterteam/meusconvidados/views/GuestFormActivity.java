@@ -28,6 +28,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_guest_form);
 
         this.mViewHolder.mEditName = (EditText) this.findViewById(R.id.edit_name);
+        this.mViewHolder.mEditDocument = (EditText) this.findViewById(R.id.edit_document);
         this.mViewHolder.mRadioNotConfirmed = (RadioButton) this.findViewById(R.id.radio_not_confirmed);
         this.mViewHolder.mRadioPresent = (RadioButton) this.findViewById(R.id.radio_present);
         this.mViewHolder.mRadioAbsent = (RadioButton) this.findViewById(R.id.radio_absent);
@@ -59,6 +60,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
 
         GuestEntity guestEntity = new GuestEntity();
         guestEntity.setName(this.mViewHolder.mEditName.getText().toString());
+        guestEntity.setDocument(this.mViewHolder.mEditDocument.getText().toString());
 
         if (this.mViewHolder.mRadioNotConfirmed.isChecked()){
             guestEntity.setConfirmed(GuestConstants.CONFIRMATION.NOT_CONFIRMED);
@@ -98,6 +100,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
             GuestEntity guestEntity = this.mGuestBusiness.load(this.mGuestId);
 
             this.mViewHolder.mEditName.setText(guestEntity.getName());
+            this.mViewHolder.mEditDocument.setText(guestEntity.getDocument());
             if(guestEntity.getConfirmed() == GuestConstants.CONFIRMATION.PRESENT){
                 this.mViewHolder.mRadioPresent.setChecked(true);
             }
@@ -120,6 +123,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
 
     private static class ViewHolder {
         EditText mEditName;
+        EditText mEditDocument;
         RadioButton mRadioNotConfirmed;
         RadioButton mRadioPresent;
         RadioButton mRadioAbsent;
