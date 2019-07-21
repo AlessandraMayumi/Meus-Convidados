@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+//        para mostrar o drawable no icone
+        navigationView.setItemIconTintList(null);
 
         this.setListeners();
         this.startDefaultFragment();

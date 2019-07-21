@@ -4,24 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="@dimen/activity_general_padding"
     tools:context=".views.GuestFormActivity">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/TextLabel"
         android:text="@string/nome"/>
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/TextEdit"
+        android:inputType="textPersonName" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextLabel"
         android:text="@string/documento"/>
     <EditText
         android:id="@+id/edit_document"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        style="@style/TextEdit"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextLabel"
+        android:text="@string/confirmacao"/>
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -45,5 +57,18 @@
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:padding="10dp"
+        android:background="@drawable/round_bt_linear_green"
+        android:textColor="@color/colorTextButton"
         android:text="@string/salvar"/>
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@drawable/round_bt_linear_green"
+        android:textColor="@color/colorTextButton"
+        android:text="@string/cancelar"/>
 </LinearLayout>

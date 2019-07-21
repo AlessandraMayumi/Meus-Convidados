@@ -10,7 +10,8 @@
         android:id="@+id/linear_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -18,16 +19,28 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorTextPresent"
                 android:text="@string/presentes"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorTextAbsent"
                 android:text="@string/ausentes"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorTextTotal"
                 android:text="@string/total"/>
         </LinearLayout>
         <LinearLayout
@@ -38,25 +51,42 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:textColor="@color/colorTextPresent"
                 android:text="@string/presentes"/>
             <TextView
                 android:id="@+id/text_absent_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:textColor="@color/colorTextAbsent"
                 android:text="@string/ausentes"/>
             <TextView
                 android:id="@+id/text_all_invited_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:textColor="@color/colorTextTotal"
                 android:text="@string/total"/>
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/linear_dashboard"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_all_invited"
-        android:layout_below="@id/linear_dashboard"
+        android:layout_below="@id/view_divider"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -33,6 +33,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         this.mViewHolder.mRadioPresent = (RadioButton) this.findViewById(R.id.radio_present);
         this.mViewHolder.mRadioAbsent = (RadioButton) this.findViewById(R.id.radio_absent);
         this.mViewHolder.mButtonSave = (Button) this.findViewById(R.id.button_save);
+        this.mViewHolder.mButtonCancel = (Button) this.findViewById(R.id.button_cancel);
 
         this.mGuestBusiness = new GuestBusiness(this);
 
@@ -46,10 +47,14 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         if(v.getId() == R.id.button_save){
             this.handleSave();
         }
+        else if(v.getId()==R.id.button_cancel){
+            this.finish();
+        }
     }
 
     private void setListeners() {
         this.mViewHolder.mButtonSave.setOnClickListener(this);
+        this.mViewHolder.mButtonCancel.setOnClickListener(this);
     }
 
     private void handleSave() {
@@ -128,5 +133,6 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         RadioButton mRadioPresent;
         RadioButton mRadioAbsent;
         Button mButtonSave;
+        Button mButtonCancel;
     }
 }

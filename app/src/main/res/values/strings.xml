@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Meus Convidados</string>
+    <string name="app_name">Gerenciamento de Convidados</string>
     <string name="navigation_drawer_open">Abrir menu</string>
     <string name="navigation_drawer_close">Fechar menu</string>
 
@@ -25,4 +25,9 @@
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
     <string name="documento">Documento</string>
+    <string name="gerenciamento_de_convidados">Gerenciamento de Convidados</string>
+    <string name="logo">logo</string>
+    <string name="confirmacao">Confirmação</string>
+    <string name="Voltar" />
+    <string name="cancelar">Cancelar</string>
 </resources>
